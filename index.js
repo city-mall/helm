@@ -152,7 +152,8 @@ async function run() {
   try {
     const context = github.context;
     await status("pending");
-
+    
+    const secretsCmd = getInput("secretsCmd") || "";
     const track = getInput("track") || "stable";
     const appName = getInput("release", required);
     const release = releaseName(appName, track);
@@ -191,6 +192,7 @@ async function run() {
 
     // Setup command options and arguments.
     const args = [
+      secretsCmd,
       "upgrade",
       release,
       chart,

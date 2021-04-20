@@ -49,5 +49,6 @@ inputs:
     description: Version of the app, usually commit sha works here.
     required: false
 runs:
-  using: docker
-  image: Dockerfile
+  using: node12
+  main: index.js
+  post: index.js

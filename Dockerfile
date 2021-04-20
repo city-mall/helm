@@ -21,7 +21,20 @@ RUN apk add --no-cache ca-certificates \
     # Init version 2 helm:
     helm init --client-only
 
-    helm plugin install https://github.com/jkroepke/helm-secrets --version v3.6.0
+ARG SOPS_VERSION=3.7.1
+
+LABEL version="${SOPS_VERSION}"
+
+ADD https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux /usr/local/bin/sops
+
+RUN chmod 755 /usr/local/bin/sops && \
+    apk update && \
+    apk add --no-cache jq && \
+    rm -rf /var/cache/apk/*
+
+RUN apk add git
+
+RUN helm3 plugin install https://github.com/jkroepke/helm-secrets --version v3.6.0   
 
 ENV PYTHONPATH "/usr/lib/python3.8/site-packages/"
 

@@ -4,7 +4,7 @@ author: deliverybot
 icon: box
 color: gray-dark
 inputs:
-  secrets-cmd:
+  secretsCmd:
     description: Required to run helm secrets
     required: false
   release:
